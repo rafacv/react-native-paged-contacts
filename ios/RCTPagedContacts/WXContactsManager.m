@@ -89,7 +89,8 @@
 {
 	NSMutableArray* contacts = [NSMutableArray new];
 	
-	NSArray* identifiers = [self._chachedIdentifiers subarrayWithRange:range];
+	NSRange safeRange = NSIntersectionRange(range, NSMakeRange(0, self._chachedIdentifiers.count));
+	NSArray* identifiers = [self._chachedIdentifiers subarrayWithRange:safeRange];
 	
 	CNContactFetchRequest *request = [[CNContactFetchRequest alloc] initWithKeysToFetch:@[CNContactIdentifierKey]];
 	request.unifyResults = YES;
